@@ -1,0 +1,14 @@
+-r requirements.txt
+
+# Development tools
+ipython==8.18.1
+ipdb==0.13.13
+
+# Testing
+pytest-watch==4.2.0
+faker==20.1.0
+factory-boy==3.3.0
+
+# Code quality
+pylint==3.0.3
+bandit==1.7.5
