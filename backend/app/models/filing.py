@@ -70,7 +70,8 @@ class Filing(Base):
         server_default=func.now(),
         comment="Record creation timestamp"
     )
-    metadata = Column(JSONB, nullable=True, comment="Additional metadata as JSON")
+    # Note: Using 'extra_metadata' as attribute name because 'metadata' is reserved by SQLAlchemy
+    extra_metadata = Column("metadata", JSONB, nullable=True, comment="Additional metadata as JSON")
 
     # Relationships
     company = relationship("Company", back_populates="filings")

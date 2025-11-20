@@ -194,10 +194,11 @@ def upgrade() -> None:
             MAX(f.filing_date) as latest_filing_date
         FROM companies c
         LEFT JOIN filings f ON c.cik = f.company_cik
-        GROUP BY c.cik, c.name, c.ticker;
-
-        CREATE UNIQUE INDEX idx_company_filing_stats_cik ON company_filing_stats(cik);
+        GROUP BY c.cik, c.name, c.ticker
     """)
+
+    # Create index on materialized view
+    op.execute("CREATE UNIQUE INDEX idx_company_filing_stats_cik ON company_filing_stats(cik)")
 
     # Create materialized view for monthly filing statistics
     op.execute("""
@@ -208,10 +209,11 @@ def upgrade() -> None:
             COUNT(*) as filing_count
         FROM filings
         GROUP BY DATE_TRUNC('month', filing_date), form_type
-        ORDER BY month DESC, form_type;
-
-        CREATE INDEX idx_monthly_filing_stats_month ON monthly_filing_stats(month);
+        ORDER BY month DESC, form_type
     """)
+
+    # Create index on materialized view
+    op.execute("CREATE INDEX idx_monthly_filing_stats_month ON monthly_filing_stats(month)")
 
     # Create function to refresh materialized views
     op.execute("""

@@ -42,7 +42,8 @@ class Company(Base):
         onupdate=func.now(),
         comment="Record last update timestamp"
     )
-    metadata = Column(JSONB, nullable=True, comment="Additional metadata as JSON")
+    # Note: Using 'extra_metadata' as attribute name because 'metadata' is reserved by SQLAlchemy
+    extra_metadata = Column("metadata", JSONB, nullable=True, comment="Additional metadata as JSON")
 
     # Relationships
     filings = relationship("Filing", back_populates="company", cascade="all, delete-orphan")

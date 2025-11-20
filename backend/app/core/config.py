@@ -79,9 +79,15 @@ class Settings(BaseSettings):
         "http://localhost:8000",
     ]
 
-    # SEC API
+    # SEC API Settings
     SEC_API_USER_AGENT: str = "your-name your-email@example.com"
     SEC_API_RATE_LIMIT: int = 10  # requests per second
+    SEC_API_TIMEOUT: int = 30  # seconds
+    SEC_API_MAX_RETRIES: int = 3
+    SEC_API_RETRY_BACKOFF: int = 2  # exponential backoff multiplier
+
+    # API Query Limits
+    MAX_RECENT_FILINGS_DAYS: int = 365  # Maximum days to look back for recent filings
 
     # Celery
     CELERY_BROKER_URL: Optional[str] = None
